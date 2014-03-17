@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="NAMESPACE">http://WebService/</string>
+    <string name="URL">http://192.168.1.100:8080/WSPaziente/WSPaziente?wsdl</string>
+
+</resources>
