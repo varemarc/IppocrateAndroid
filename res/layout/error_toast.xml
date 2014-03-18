@@ -11,6 +11,7 @@
         android:id="@+id/error_toast_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#A94442" />
+        android:textColor="#A94442"
+        android:textStyle="bold" />
 
 </LinearLayout>

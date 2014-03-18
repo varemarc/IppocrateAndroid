@@ -16,7 +16,7 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat.Light" >
         <activity
-            android:name="com.example.ippocrate.MainActivity"
+            android:name="com.example.ippocrate.Home"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -24,6 +24,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.ippocrate.Pazienti"
+            android:label="@string/title_activity_pazienti" >
         </activity>
     </application>
 

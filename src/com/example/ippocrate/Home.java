@@ -6,9 +6,8 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
-
 import android.support.v7.app.ActionBarActivity;
-import android.graphics.Typeface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -21,7 +20,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends ActionBarActivity {
+public class Home extends ActionBarActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +33,7 @@ public class MainActivity extends ActionBarActivity {
 
 		super.onCreate(savedInstanceState);
 		getActionBar().hide();
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_home);
 
 		Button accedi = (Button) findViewById(R.id.accedi);
 		accedi.setOnClickListener(new OnClickListener() {
@@ -49,16 +48,23 @@ public class MainActivity extends ActionBarActivity {
 				String pincode = et2.getText().toString();
 				String password = et3.getText().toString();
 
-				if (login(username, pincode, password)) {
-					// TODO: lanciare una nuova Activity e passare il parametro idM
+				Long idM = login(username, pincode, password);
+				
+				if (idM.equals(new Long(-1)) == false) {
+					Intent intent = new Intent(Home.this, Pazienti.class);
+					Bundle b = new Bundle();
+					b.putLong("idM", idM.longValue());
+					intent.putExtras(b);
+					startActivity(intent);
+					finish();
 				} else {
 					LayoutInflater inflater = getLayoutInflater();
 					View layout = inflater.inflate(R.layout.error_toast,
 							(ViewGroup) findViewById(R.id.error_toast_layout));
 
-					TextView text = (TextView) layout.findViewById(R.id.error_toast_text);
+					TextView text = (TextView) layout
+							.findViewById(R.id.error_toast_text);
 					text.setText("Login fallito!");
-					text.setTypeface(null, Typeface.BOLD);
 
 					Toast toast = new Toast(getApplicationContext());
 					toast.setDuration(Toast.LENGTH_SHORT);
@@ -70,7 +76,7 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 	/** Metodo invocato al click del pulsante di login */
-	public boolean login(String username, String pincode, String password) {
+	public Long login(String username, String pincode, String password) {
 
 		Log.i("login", "fase iniziale");
 
@@ -102,21 +108,22 @@ public class MainActivity extends ActionBarActivity {
 			String responseData = response.toString();
 
 			JSONObject obj = new JSONObject(responseData);
-			String ris = (String) obj.get("loginOK");
+			String ris = obj.get("loginOK").toString();
+			
+			Long idM = new Long(ris);
 
 			Log.i("loginOK", ris);
 
 			if (ris.equals("-1") == false) {
 				Log.i("login", "confermato");
-				return true;
 			} else {
 				Log.i("login", "rifiutato");
-				return false;
 			}
+			return idM;
 
 		} catch (Exception e) {
 			Log.e("WS Error->", e.toString());
-			return false;
+			return new Long(-1);
 		}
 	}
 }
