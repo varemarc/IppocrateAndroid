@@ -326,8 +326,7 @@ int layout abc_search_view 0x7f030016
 int layout activity_home 0x7f030017
 int layout activity_pazienti 0x7f030018
 int layout error_toast 0x7f030019
-int layout fragment_pazienti 0x7f03001a
-int layout support_simple_spinner_dropdown_item 0x7f03001b
+int layout support_simple_spinner_dropdown_item 0x7f03001a
 int menu main 0x7f0c0000
 int menu pazienti 0x7f0c0001
 int string NAMESPACE 0x7f0a000d
