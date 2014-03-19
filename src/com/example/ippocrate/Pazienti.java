@@ -28,8 +28,9 @@ public class Pazienti extends ActionBarActivity {
 		StrictMode.setThreadPolicy(policy);
 
 		super.onCreate(savedInstanceState);
-		getActionBar().hide();
 		setContentView(R.layout.activity_pazienti);
+		
+//		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		Bundle b = getIntent().getExtras();
 		Long idM = new Long(b.getLong("idM"));

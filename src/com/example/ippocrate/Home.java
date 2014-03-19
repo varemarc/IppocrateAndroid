@@ -32,7 +32,6 @@ public class Home extends ActionBarActivity {
 		StrictMode.setThreadPolicy(policy);
 
 		super.onCreate(savedInstanceState);
-		getActionBar().hide();
 		setContentView(R.layout.activity_home);
 
 		Button accedi = (Button) findViewById(R.id.accedi);
