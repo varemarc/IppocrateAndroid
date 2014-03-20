@@ -28,7 +28,14 @@
         <activity
             android:name="com.example.ippocrate.Pazienti"
             android:label="@string/title_activity_pazienti"
-            android:parentActivityName="com.example.ippocrate.Home"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.example.ippocrate.CartellaClinica"
+            android:label="@string/title_activity_cartella_clinica"
+            android:launchMode="singleTop"
+            android:parentActivityName="com.example.ippocrate.Pazienti"
             android:screenOrientation="portrait" >
         </activity>
     </application>

@@ -6,10 +6,11 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
-import android.support.v7.app.ActionBarActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,9 @@ public class Home extends ActionBarActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_home);
+
 		StrictMode.enableDefaults();
 
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
@@ -31,12 +35,18 @@ public class Home extends ActionBarActivity {
 
 		StrictMode.setThreadPolicy(policy);
 
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_home);
+		// TESTING
+		EditText et1 = (EditText) findViewById(R.id.username);
+		et1.setText("rossi");
+		EditText et2 = (EditText) findViewById(R.id.pincode);
+		et2.setText("1");
+		EditText et3 = (EditText) findViewById(R.id.password);
+		et3.setText("1");
+		// END TESTING
 
 		Button accedi = (Button) findViewById(R.id.accedi);
 		accedi.setOnClickListener(new OnClickListener() {
-
+			@Override
 			public void onClick(View v) {
 
 				EditText et1 = (EditText) findViewById(R.id.username);
@@ -47,12 +57,12 @@ public class Home extends ActionBarActivity {
 				String pincode = et2.getText().toString();
 				String password = et3.getText().toString();
 
-				Long idM = login(username, pincode, password);
-				
-				if (idM.equals(new Long(-1)) == false) {
+				Long idMedico = login(username, pincode, password);
+
+				if (idMedico.equals(Long.valueOf(-1)) == false) {
 					Intent intent = new Intent(Home.this, Pazienti.class);
 					Bundle b = new Bundle();
-					b.putLong("idM", idM.longValue());
+					b.putLong("idMedico", idMedico.longValue());
 					intent.putExtras(b);
 					startActivity(intent);
 					finish();
@@ -108,8 +118,8 @@ public class Home extends ActionBarActivity {
 
 			JSONObject obj = new JSONObject(responseData);
 			String ris = obj.get("loginOK").toString();
-			
-			Long idM = new Long(ris);
+
+			Long idMedico = Long.valueOf(ris);
 
 			Log.i("loginOK", ris);
 
@@ -118,11 +128,11 @@ public class Home extends ActionBarActivity {
 			} else {
 				Log.i("login", "rifiutato");
 			}
-			return idM;
+			return idMedico;
 
 		} catch (Exception e) {
 			Log.e("WS Error->", e.toString());
-			return new Long(-1);
+			return Long.valueOf(-1);
 		}
 	}
 }

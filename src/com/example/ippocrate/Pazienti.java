@@ -11,15 +11,27 @@ import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
-import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 public class Pazienti extends ActionBarActivity {
 
+	private Long idMedico;
+	private List<String[]> pazientiConId;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_pazienti);
+
 		StrictMode.enableDefaults();
 
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
@@ -27,26 +39,52 @@ public class Pazienti extends ActionBarActivity {
 
 		StrictMode.setThreadPolicy(policy);
 
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_pazienti);
-		
-//		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 		Bundle b = getIntent().getExtras();
-		Long idM = new Long(b.getLong("idM"));
-
-		List<String[]> pazienti = trovaPazienti(idM);
+		idMedico = Long.valueOf(b.getLong("idMedico"));
 
 	}
 
+	@Override
+	protected void onStart() {
+		super.onStart();
+
+		pazientiConId = trovaPazienti(idMedico);
+		List<String> listaPazienti = new ArrayList<String>();
+
+		for (int i = 0; i < pazientiConId.size(); i++) {
+			String[] elem = pazientiConId.get(i);
+			listaPazienti.add(elem[1]);
+		}
+
+		ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this,
+				R.layout.row, listaPazienti);
+		ListView mainListView = (ListView) findViewById(R.id.listView);
+		mainListView.setAdapter(listAdapter);
+
+		mainListView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> a, View v, int position,
+					long id) {
+				String[] elem = pazientiConId.get(position);
+				Long idPaziente = Long.valueOf(elem[0]);
+
+				Intent intent = new Intent(Pazienti.this, CartellaClinica.class);
+				Bundle b = new Bundle();
+				b.putLong("idPaziente", idPaziente.longValue());
+				intent.putExtras(b);
+				startActivity(intent);
+			}
+		});
+	}
+
 	/** Metodo invocato per ottenere i pazienti di un medico */
-	public List<String[]> trovaPazienti(Long idM) {
+	public List<String[]> trovaPazienti(Long idMedico) {
 
 		Log.i("trovaPazienti", "fase iniziale");
 
 		SoapObject request = new SoapObject(getString(R.string.NAMESPACE),
 				"trovaPazienti");
-		request.addProperty("idM", idM);
+		request.addProperty("idMedico", idMedico);
 
 		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 				SoapEnvelope.VER11);
@@ -58,9 +96,9 @@ public class Pazienti extends ActionBarActivity {
 				getString(R.string.URL));
 
 		androidHttpTransport.debug = true;
-		
-		ArrayList<String[]> pazienti = new ArrayList<String[]>();
-		
+
+		List<String[]> pazienti = new ArrayList<String[]>();
+
 		try {
 			androidHttpTransport.call("trovaPazienti", envelope);
 
@@ -80,8 +118,9 @@ public class Pazienti extends ActionBarActivity {
 			for (int i = 0; i < arr.length(); i++) {
 				String[] paziente = new String[2];
 				JSONObject objPaz = new JSONObject(arr.getString(i));
-				paziente[0] = objPaz.get("idP").toString();
-				paziente[1] = objPaz.get("nome").toString() + " " + objPaz.get("cognome").toString();
+				paziente[0] = objPaz.get("idPaziente").toString();
+				paziente[1] = objPaz.get("nome").toString() + " "
+						+ objPaz.get("cognome").toString();
 				pazienti.add(paziente);
 			}
 
