@@ -31,5 +31,6 @@ public class CartellaClinica extends ActionBarActivity {
 	protected void onStart() {
 		super.onStart();
 		
+		
 	}
 }
