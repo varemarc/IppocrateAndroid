@@ -30,6 +30,7 @@ public class CartellaClinica extends ActionBarActivity {
 	@Override
 	protected void onStart() {
 		super.onStart();
+		
 
 	}
 }
