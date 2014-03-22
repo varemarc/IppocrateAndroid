@@ -117,11 +117,12 @@ public class Home extends ActionBarActivity {
 			String responseData = response.toString();
 
 			JSONObject obj = new JSONObject(responseData);
+			
+			Log.i("response", obj.toString());
+			
 			String ris = obj.get("loginOK").toString();
 
 			Long idMedico = Long.valueOf(ris);
-
-			Log.i("loginOK", ris);
 
 			if (ris.equals("-1") == false) {
 				Log.i("login", "confermato");

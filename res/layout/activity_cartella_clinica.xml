@@ -4,4 +4,37 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
+    <!-- <ListView -->
+    <!-- android:id="@+id/listView" -->
+    <!-- android:layout_width="fill_parent" -->
+    <!-- android:layout_height="fill_parent" > -->
+    <!-- </ListView> -->
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="5dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/bluIppocrate"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="5dp"
+        android:text="@string/titoloAnamnesi"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/bluIppocrate" />
+
+    <TextView
+        android:id="@+id/anamnesi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
 </LinearLayout>

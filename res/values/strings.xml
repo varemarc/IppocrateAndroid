@@ -6,5 +6,6 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_pazienti">I miei pazienti</string>
     <string name="title_activity_cartella_clinica">Cartella clinica</string>
+    <string name="titoloAnamnesi"><u>Anamnesi</u></string>
 
 </resources>

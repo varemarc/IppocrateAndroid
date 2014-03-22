@@ -67,10 +67,12 @@ public class Pazienti extends ActionBarActivity {
 					long id) {
 				String[] elem = pazientiConId.get(position);
 				Long idPaziente = Long.valueOf(elem[0]);
-
+				String paziente = elem[1];
+				
 				Intent intent = new Intent(Pazienti.this, CartellaClinica.class);
 				Bundle b = new Bundle();
 				b.putLong("idPaziente", idPaziente.longValue());
+				b.putString("paziente", paziente);
 				intent.putExtras(b);
 				startActivity(intent);
 			}
@@ -111,9 +113,10 @@ public class Pazienti extends ActionBarActivity {
 			String responseData = response.toString();
 
 			JSONObject obj = new JSONObject(responseData);
+			
+			Log.i("response", obj.toString());
+			
 			JSONArray arr = obj.getJSONArray("mieiPazienti");
-
-			Log.i("mieiPazienti", arr.toString());
 
 			for (int i = 0; i < arr.length(); i++) {
 				String[] paziente = new String[2];
