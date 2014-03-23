@@ -7,5 +7,6 @@
     <string name="title_activity_pazienti">I miei pazienti</string>
     <string name="title_activity_cartella_clinica">Cartella clinica</string>
     <string name="titoloAnamnesi"><u>Anamnesi</u></string>
+    <string name="titoloReferti"><u>Referti medici</u></string>
 
 </resources>

@@ -11,11 +11,16 @@ import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class CartellaClinica extends ActionBarActivity {
 
@@ -54,6 +59,28 @@ public class CartellaClinica extends ActionBarActivity {
 
 		TextView tvAnamnesi = (TextView) findViewById(R.id.anamnesi);
 		tvAnamnesi.setText(anamnesi);
+
+		List<String[]> referti = (List<String[]>) ccConReferti.get(2);
+
+		ListView mainListView = (ListView) findViewById(R.id.listView);
+		mainListView.setAdapter(new RefertiAdapter(this, referti));
+		
+		mainListView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> a, View v, int position,
+					long id) {
+//				String[] elem = pazientiConId.get(position);
+//				Long idPaziente = Long.valueOf(elem[0]);
+//				String paziente = elem[1];
+//				
+//				Intent intent = new Intent(Pazienti.this, CartellaClinica.class);
+//				Bundle b = new Bundle();
+//				b.putLong("idPaziente", idPaziente.longValue());
+//				b.putString("paziente", paziente);
+//				intent.putExtras(b);
+//				startActivity(intent);
+			}
+		});
 	}
 
 	/** Metodo invocato per ottenere la cartella clinica di un paziente */

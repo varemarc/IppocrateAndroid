@@ -57,7 +57,7 @@ public class Pazienti extends ActionBarActivity {
 		}
 
 		ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this,
-				R.layout.row, listaPazienti);
+				R.layout.row_pazienti, listaPazienti);
 		ListView mainListView = (ListView) findViewById(R.id.listView);
 		mainListView.setAdapter(listAdapter);
 
