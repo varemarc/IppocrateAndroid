@@ -89,7 +89,7 @@ public class Pazienti extends ActionBarActivity {
 		request.addProperty("idMedico", idMedico);
 
 		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
-				SoapEnvelope.VER11);
+				SoapEnvelope.VER10);
 		envelope.setAddAdornments(false);
 		envelope.implicitTypes = true;
 		envelope.setOutputSoapObject(request);

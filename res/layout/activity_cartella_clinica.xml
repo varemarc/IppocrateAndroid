@@ -1,49 +1,56 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/container"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:layout_height="fill_parent" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:paddingLeft="5dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/bluIppocrate"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:paddingLeft="5dp"
-        android:text="@string/titoloAnamnesi"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/bluIppocrate" />
-
-    <TextView
-        android:id="@+id/anamnesi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="5dp"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:paddingLeft="5dp"
-        android:text="@string/titoloReferti"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/bluIppocrate" />
-    <ListView
-        android:id="@+id/listView"
+    <LinearLayout
+        android:id="@+id/container"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="5dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/bluIppocrate"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="5dp"
+            android:text="@string/titoloAnamnesi"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/bluIppocrate" />
+
+        <TextView
+            android:id="@+id/anamnesi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="5dp"
+            android:text="@string/titoloReferti"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/bluIppocrate" />
+
+        <TableLayout
+            android:id="@+id/tabellaReferti"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp" >
+        </TableLayout>
+    </LinearLayout>
+
+</ScrollView>
