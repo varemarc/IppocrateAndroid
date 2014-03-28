@@ -3,15 +3,17 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="5dp"
-    android:paddingBottom="15dp"
-    android:onClick="clickRow" >
+    android:paddingTop="7.5dp"
+    android:paddingBottom="7.5dp"
+    android:onClick="clickRow"
+    android:background="?android:attr/selectableItemBackground" >
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
 
         <TextView
-            android:id="@+id/tipoVisita"
+            android:id="@+id/tipoVisitaRow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -21,16 +23,16 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tipoVisita"
+            android:layout_below="@+id/tipoVisitaRow"
             android:text="Data: "
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#777" />
 
         <TextView
-            android:id="@+id/data"
+            android:id="@+id/dataRow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tipoVisita"
+            android:layout_below="@+id/tipoVisitaRow"
             android:layout_toRightOf="@+id/textView1"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -38,16 +40,16 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/data"
+            android:layout_below="@+id/dataRow"
             android:text="Medico: "
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#777" />
 
         <TextView
-            android:id="@+id/medico"
+            android:id="@+id/medicoRow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/data"
+            android:layout_below="@+id/dataRow"
             android:layout_toRightOf="@+id/textView2"
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </RelativeLayout>

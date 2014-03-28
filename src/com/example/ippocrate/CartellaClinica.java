@@ -11,6 +11,7 @@ import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
@@ -40,7 +41,6 @@ public class CartellaClinica extends ActionBarActivity {
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-		
 		Bundle b = getIntent().getExtras();
 		idPaziente = Long.valueOf(b.getLong("idPaziente"));
 		paziente = b.getString("paziente");
@@ -62,20 +62,33 @@ public class CartellaClinica extends ActionBarActivity {
 		List<String[]> referti = (List<String[]>) ccConReferti.get(2);
 
 		TableLayout table = (TableLayout) findViewById(R.id.tabellaReferti);
+		table.removeAllViews(); //utile per evitare la duplicazione delle righe
 		for (int i = 0; i < referti.size(); i++) {
 			String[] r = referti.get(i);
 			TableRow row = (TableRow) View.inflate(this, R.layout.row_referti,
 					null);
 			row.setId(i);
-			((TextView) row.findViewById(R.id.tipoVisita)).setText(r[1]);
-			((TextView) row.findViewById(R.id.data)).setText(r[2]);
-			((TextView) row.findViewById(R.id.medico)).setText(r[3]);
+			((TextView) row.findViewById(R.id.tipoVisitaRow)).setText(r[1]);
+			((TextView) row.findViewById(R.id.dataRow)).setText(r[2]);
+			((TextView) row.findViewById(R.id.medicoRow)).setText(r[3]);
 			table.addView(row);
 		}
 	}
 
 	public void clickRow(View v) {
-		// TODO
+		int i = v.getId();
+		List<String[]> referti = (List<String[]>) ccConReferti.get(2);
+		String[] referto = referti.get(i);
+		
+		Long idReferto = Long.valueOf(referto[0]);
+		
+		Intent intent = new Intent(CartellaClinica.this, RefertoMedico.class);
+		Bundle b = new Bundle();
+		b.putString("paziente", paziente);
+		b.putLong("idReferto", idReferto);
+		b.putStringArray("referto", referto);
+		intent.putExtras(b);
+		startActivity(intent);
 	}
 
 	/** Metodo invocato per ottenere la cartella clinica di un paziente */

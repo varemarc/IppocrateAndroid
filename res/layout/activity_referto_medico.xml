@@ -1,0 +1,117 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="5dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/bluIppocrate"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="5dp"
+            android:text="@string/titoloTipoDiVisita"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/bluIppocrate" />
+
+        <TextView
+            android:id="@+id/tipoDiVisita"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="5dp"
+            android:text="@string/titoloDataVisita"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/bluIppocrate" />
+
+        <TextView
+            android:id="@+id/dataVisita"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="5dp"
+            android:text="@string/titoloMedico"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/bluIppocrate" />
+
+        <TextView
+            android:id="@+id/medico"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="5dp"
+            android:text="@string/titoloDiagnosi"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/bluIppocrate" />
+
+        <TextView
+            android:id="@+id/diagnosi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="5dp"
+            android:text="@string/titoloMultimedia"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/bluIppocrate" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="5dp"
+            android:text="@string/titoloPrescrizioniMediche"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/bluIppocrate" />
+
+        <!-- <TableLayout -->
+        <!-- android:id="@+id/tabellaPrescrizioni" -->
+        <!-- android:layout_width="fill_parent" -->
+        <!-- android:layout_height="wrap_content" -->
+        <!-- android:paddingTop="15dp" > -->
+        <!-- </TableLayout> -->
+    </LinearLayout>
+
+</ScrollView>

@@ -37,11 +37,11 @@ public class Home extends ActionBarActivity {
 
 		// TESTING
 		EditText et1 = (EditText) findViewById(R.id.username);
-		et1.setText("rossi");
+		et1.setText("2222");
 		EditText et2 = (EditText) findViewById(R.id.pincode);
-		et2.setText("1");
+		et2.setText("2222");
 		EditText et3 = (EditText) findViewById(R.id.password);
-		et3.setText("1");
+		et3.setText("2222");
 		// END TESTING
 
 		Button accedi = (Button) findViewById(R.id.accedi);

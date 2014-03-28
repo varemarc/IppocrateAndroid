@@ -8,5 +8,12 @@
     <string name="title_activity_cartella_clinica">Cartella clinica</string>
     <string name="titoloAnamnesi"><u>Anamnesi</u></string>
     <string name="titoloReferti"><u>Referti medici</u></string>
+    <string name="title_activity_referto_medico">Referto medico</string>
+    <string name="titoloTipoDiVisita"><u>Tipo di visita</u></string>
+    <string name="titoloDataVisita"><u>Data visita</u></string>
+    <string name="titoloMedico"><u>Medico</u></string>
+    <string name="titoloDiagnosi"><u>Diagnosi</u></string>
+    <string name="titoloMultimedia"><u>Multimedia</u></string>
+    <string name="titoloPrescrizioniMediche"><u>Prescrizioni mediche</u></string>
 
 </resources>
