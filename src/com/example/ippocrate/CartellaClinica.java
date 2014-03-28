@@ -75,17 +75,18 @@ public class CartellaClinica extends ActionBarActivity {
 		}
 	}
 
+	/** Metodo invocato al click di una riga della tabella dei referti */ 
 	public void clickRow(View v) {
 		int i = v.getId();
 		List<String[]> referti = (List<String[]>) ccConReferti.get(2);
 		String[] referto = referti.get(i);
 		
-		Long idReferto = Long.valueOf(referto[0]);
+		Long idRM = Long.valueOf(referto[0]);
 		
 		Intent intent = new Intent(CartellaClinica.this, RefertoMedico.class);
 		Bundle b = new Bundle();
 		b.putString("paziente", paziente);
-		b.putLong("idReferto", idReferto);
+		b.putLong("idRM", idRM);
 		b.putStringArray("referto", referto);
 		intent.putExtras(b);
 		startActivity(intent);

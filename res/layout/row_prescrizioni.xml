@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="7.5dp"
+    android:paddingLeft="5dp"
+    android:paddingTop="7.5dp" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Data prescrizione: "
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#777" />
+
+        <TextView
+            android:id="@+id/dataPrescrizioneRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textView1"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dataPrescrizioneRow"
+            android:text="Data scadenza: "
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#777" />
+
+        <TextView
+            android:id="@+id/dataScadenzaRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dataPrescrizioneRow"
+            android:layout_toRightOf="@+id/textView2"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dataScadenzaRow"
+            android:text="Medicinale: "
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#777" />
+
+        <TextView
+            android:id="@+id/medicinaleRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dataScadenzaRow"
+            android:layout_toRightOf="@+id/textView3"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/medicinaleRow"
+            android:text="Quantità: "
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#777" />
+
+        <TextView
+            android:id="@+id/quantitaRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/medicinaleRow"
+            android:layout_toRightOf="@+id/textView4"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </RelativeLayout>
+
+</TableRow>
