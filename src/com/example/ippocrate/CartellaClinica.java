@@ -40,6 +40,7 @@ public class CartellaClinica extends ActionBarActivity {
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+		
 		Bundle b = getIntent().getExtras();
 		idPaziente = Long.valueOf(b.getLong("idPaziente"));
 		paziente = b.getString("paziente");
