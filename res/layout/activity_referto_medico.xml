@@ -95,6 +95,13 @@
             android:text="@string/titoloMultimedia"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/bluIppocrate" />
+        
+        <TableLayout
+            android:id="@+id/tabellaMultimedia"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp" >
+        </TableLayout>
 
         <TextView
             android:id="@+id/textView7"

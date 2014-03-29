@@ -2,15 +2,16 @@
 <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="5dp"
-    android:paddingTop="7.5dp"
-    android:paddingBottom="7.5dp"
+    android:background="?android:attr/selectableItemBackground"
     android:onClick="clickRow"
-    android:background="?android:attr/selectableItemBackground" >
+    android:paddingBottom="7.5dp"
+    android:paddingLeft="5dp"
+    android:paddingTop="7.5dp" >
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent"
+        android:layout_weight="1" >
 
         <TextView
             android:id="@+id/tipoVisitaRow"
@@ -23,7 +24,7 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tipoVisitaRow"
+            android:layout_below="@id/tipoVisitaRow"
             android:text="Data: "
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#777" />
@@ -32,15 +33,15 @@
             android:id="@+id/dataRow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tipoVisitaRow"
-            android:layout_toRightOf="@+id/textView1"
+            android:layout_below="@id/tipoVisitaRow"
+            android:layout_toRightOf="@id/textView1"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/dataRow"
+            android:layout_below="@id/dataRow"
             android:text="Medico: "
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#777" />
@@ -49,9 +50,21 @@
             android:id="@+id/medicoRow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/dataRow"
-            android:layout_toRightOf="@+id/textView2"
+            android:layout_below="@id/dataRow"
+            android:layout_toRightOf="@id/textView2"
             android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:paddingRight="15dp"
+            android:text=">"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/bluIppocrate"
+            android:textSize="30sp"
+            android:textStyle="bold" />
     </RelativeLayout>
 
 </TableRow>

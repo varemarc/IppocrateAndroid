@@ -11,11 +11,15 @@ import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -63,17 +67,30 @@ public class RefertoMedico extends ActionBarActivity {
 	protected void onStart() {
 		super.onStart();
 
-		// TODO multimedia
+		List<String> multimedia = ottieniMultimedia(idRM);
+		
+		TableLayout table = (TableLayout) findViewById(R.id.tabellaMultimedia);
+		table.removeAllViews(); // utile per evitare la duplicazione delle righe
+		for (int i = 0; i < multimedia.size(); i++) {
+			String f = multimedia.get(i);
+			Bitmap bm = fromStringToBitmap(f);
+			
+			TableRow row = (TableRow) View.inflate(this,
+					R.layout.row_multimedia, null);
+			
+			((ImageView) row.findViewById(R.id.fileRow)).setImageBitmap(bm);
+			table.addView(row);
+		}
 
 		List<String[]> prescrizioni = ottieniPM(idRM);
 
-		TableLayout table = (TableLayout) findViewById(R.id.tabellaPrescrizioni);
+		table = (TableLayout) findViewById(R.id.tabellaPrescrizioni);
 		table.removeAllViews(); // utile per evitare la duplicazione delle righe
 		for (int i = 0; i < prescrizioni.size(); i++) {
 			String[] pm = prescrizioni.get(i);
 			TableRow row = (TableRow) View.inflate(this,
 					R.layout.row_prescrizioni, null);
-			row.setId(i);
+			
 			((TextView) row.findViewById(R.id.dataPrescrizioneRow))
 					.setText(pm[1]);
 			((TextView) row.findViewById(R.id.dataScadenzaRow)).setText(pm[2]);
@@ -82,6 +99,59 @@ public class RefertoMedico extends ActionBarActivity {
 			table.addView(row);
 		}
 
+	}
+
+	/** Metodo invocato per ottenere i file multimediali di un referto */
+	public List<String> ottieniMultimedia(Long idRM) {
+
+		Log.i("ottieniMultimedia", "fase iniziale");
+
+		SoapObject request = new SoapObject(getString(R.string.NAMESPACE),
+				"ottieniMultimedia");
+		request.addProperty("idRM", idRM);
+
+		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+				SoapEnvelope.VER10);
+		envelope.setAddAdornments(false);
+		envelope.implicitTypes = true;
+		envelope.setOutputSoapObject(request);
+
+		HttpTransportSE androidHttpTransport = new HttpTransportSE(
+				getString(R.string.URL));
+
+		androidHttpTransport.debug = true;
+
+		List<String> multimedia = new ArrayList<String>();
+
+		try {
+			String soapAction = "\"" + getString(R.string.NAMESPACE)
+					+ "ottieniMultimedia" + "\"";
+			androidHttpTransport.call(soapAction, envelope);
+
+			Log.i("ottieniMultimedia", "inviata richiesta");
+
+			SoapPrimitive response = (SoapPrimitive) envelope.getResponse();
+
+			Log.i("ottieniMultimedia", "ricevuta risposta");
+
+			String responseData = response.toString();
+
+			JSONObject obj = new JSONObject(responseData);
+
+			Log.i("response", obj.toString());
+
+			JSONArray arr = obj.getJSONArray("multimedia");
+
+			for (int i = 0; i < arr.length(); i++) {
+				JSONObject objFile = new JSONObject(arr.getString(i));
+				String file = objFile.get("image").toString();
+				multimedia.add(file);
+			}
+
+		} catch (Exception e) {
+			Log.e("WS Error->", e.toString());
+		}
+		return multimedia;
 	}
 
 	/** Metodo invocato per ottenere le prescrizioni mediche di un referto */
@@ -107,7 +177,9 @@ public class RefertoMedico extends ActionBarActivity {
 		List<String[]> prescrizioni = new ArrayList<String[]>();
 
 		try {
-			androidHttpTransport.call("ottieniPM", envelope);
+			String soapAction = "\"" + getString(R.string.NAMESPACE)
+					+ "ottieniPM" + "\"";
+			androidHttpTransport.call(soapAction, envelope);
 
 			Log.i("ottieniPM", "inviata richiesta");
 
@@ -138,5 +210,12 @@ public class RefertoMedico extends ActionBarActivity {
 			Log.e("WS Error->", e.toString());
 		}
 		return prescrizioni;
+	}
+	
+	/** Metodo che trasforma una stringa rappresentante un'immagine in una Bitmap */
+	private Bitmap fromStringToBitmap(String f) {
+		byte[] decodedString = Base64.decode(f, Base64.DEFAULT);
+		Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+		return decodedByte;
 	}
 }

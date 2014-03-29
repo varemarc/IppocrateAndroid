@@ -106,7 +106,9 @@ public class Home extends ActionBarActivity {
 
 		androidHttpTransport.debug = true;
 		try {
-			androidHttpTransport.call("effettuaLogin", envelope);
+			String soapAction = "\"" + getString(R.string.NAMESPACE)
+					+ "effettuaLogin" + "\"";
+			androidHttpTransport.call(soapAction, envelope);
 
 			Log.i("login", "inviata richiesta");
 
@@ -117,9 +119,9 @@ public class Home extends ActionBarActivity {
 			String responseData = response.toString();
 
 			JSONObject obj = new JSONObject(responseData);
-			
+
 			Log.i("response", obj.toString());
-			
+
 			String ris = obj.get("loginOK").toString();
 
 			Long idMedico = Long.valueOf(ris);

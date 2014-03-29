@@ -68,7 +68,7 @@ public class Pazienti extends ActionBarActivity {
 				String[] elem = pazientiConId.get(position);
 				Long idPaziente = Long.valueOf(elem[0]);
 				String paziente = elem[1];
-				
+
 				Intent intent = new Intent(Pazienti.this, CartellaClinica.class);
 				Bundle b = new Bundle();
 				b.putLong("idPaziente", idPaziente.longValue());
@@ -102,7 +102,9 @@ public class Pazienti extends ActionBarActivity {
 		List<String[]> pazienti = new ArrayList<String[]>();
 
 		try {
-			androidHttpTransport.call("trovaPazienti", envelope);
+			String soapAction = "\"" + getString(R.string.NAMESPACE)
+					+ "trovaPazienti" + "\"";
+			androidHttpTransport.call(soapAction, envelope);
 
 			Log.i("trovaPazienti", "inviata richiesta");
 
@@ -113,9 +115,9 @@ public class Pazienti extends ActionBarActivity {
 			String responseData = response.toString();
 
 			JSONObject obj = new JSONObject(responseData);
-			
+
 			Log.i("response", obj.toString());
-			
+
 			JSONArray arr = obj.getJSONArray("mieiPazienti");
 
 			for (int i = 0; i < arr.length(); i++) {

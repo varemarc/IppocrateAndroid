@@ -62,7 +62,7 @@ public class CartellaClinica extends ActionBarActivity {
 		List<String[]> referti = (List<String[]>) ccConReferti.get(2);
 
 		TableLayout table = (TableLayout) findViewById(R.id.tabellaReferti);
-		table.removeAllViews(); //utile per evitare la duplicazione delle righe
+		table.removeAllViews(); // utile per evitare la duplicazione delle righe
 		for (int i = 0; i < referti.size(); i++) {
 			String[] r = referti.get(i);
 			TableRow row = (TableRow) View.inflate(this, R.layout.row_referti,
@@ -75,14 +75,14 @@ public class CartellaClinica extends ActionBarActivity {
 		}
 	}
 
-	/** Metodo invocato al click di una riga della tabella dei referti */ 
+	/** Metodo invocato al click di una riga della tabella dei referti */
 	public void clickRow(View v) {
 		int i = v.getId();
 		List<String[]> referti = (List<String[]>) ccConReferti.get(2);
 		String[] referto = referti.get(i);
-		
+
 		Long idRM = Long.valueOf(referto[0]);
-		
+
 		Intent intent = new Intent(CartellaClinica.this, RefertoMedico.class);
 		Bundle b = new Bundle();
 		b.putString("paziente", paziente);
@@ -115,7 +115,9 @@ public class CartellaClinica extends ActionBarActivity {
 		List<Object> cc = new ArrayList<Object>();
 
 		try {
-			androidHttpTransport.call("ottieniCC", envelope);
+			String soapAction = "\"" + getString(R.string.NAMESPACE)
+					+ "ottieniCC" + "\"";
+			androidHttpTransport.call(soapAction, envelope);
 
 			Log.i("ottieniCC", "inviata richiesta");
 
