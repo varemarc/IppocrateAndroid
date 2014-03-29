@@ -4,12 +4,14 @@
     android:layout_height="wrap_content"
     android:paddingBottom="7.5dp"
     android:paddingLeft="5dp"
-    android:paddingTop="7.5dp"
-    android:textAlignment="center" >
+    android:paddingTop="7.5dp" >
 
-    <ImageView 
+    <ImageView
         android:id="@+id/fileRow"
-        android:layout_width="50dp"
-        android:layout_height="50dp" />
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:contentDescription="Immagine referto"
+        android:onClick="goFullScreen"
+        android:scaleType="centerCrop" />
 
 </TableRow>

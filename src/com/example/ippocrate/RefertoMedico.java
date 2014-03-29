@@ -11,8 +11,10 @@ import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
@@ -68,16 +70,16 @@ public class RefertoMedico extends ActionBarActivity {
 		super.onStart();
 
 		List<String> multimedia = ottieniMultimedia(idRM);
-		
+
 		TableLayout table = (TableLayout) findViewById(R.id.tabellaMultimedia);
 		table.removeAllViews(); // utile per evitare la duplicazione delle righe
 		for (int i = 0; i < multimedia.size(); i++) {
 			String f = multimedia.get(i);
 			Bitmap bm = fromStringToBitmap(f);
-			
+
 			TableRow row = (TableRow) View.inflate(this,
 					R.layout.row_multimedia, null);
-			
+
 			((ImageView) row.findViewById(R.id.fileRow)).setImageBitmap(bm);
 			table.addView(row);
 		}
@@ -90,7 +92,7 @@ public class RefertoMedico extends ActionBarActivity {
 			String[] pm = prescrizioni.get(i);
 			TableRow row = (TableRow) View.inflate(this,
 					R.layout.row_prescrizioni, null);
-			
+
 			((TextView) row.findViewById(R.id.dataPrescrizioneRow))
 					.setText(pm[1]);
 			((TextView) row.findViewById(R.id.dataScadenzaRow)).setText(pm[2]);
@@ -99,6 +101,18 @@ public class RefertoMedico extends ActionBarActivity {
 			table.addView(row);
 		}
 
+	}
+
+	/**
+	 * Metodo invocato al click di un'immagine per visualizzarla a tutto schermo
+	 */
+	public void goFullScreen(View v) {
+		ImageView iv = (ImageView) v;
+		Bitmap img = ((BitmapDrawable) iv.getDrawable()).getBitmap();
+
+		Intent intent = new Intent(RefertoMedico.this, ImmagineFullScreen.class);
+		intent.putExtra("img", img);
+		startActivity(intent);
 	}
 
 	/** Metodo invocato per ottenere i file multimediali di un referto */
@@ -138,9 +152,9 @@ public class RefertoMedico extends ActionBarActivity {
 
 			JSONObject obj = new JSONObject(responseData);
 
-			Log.i("response", obj.toString());
-
 			JSONArray arr = obj.getJSONArray("multimedia");
+
+			Log.i("response", "n oggetti: " + arr.length());
 
 			for (int i = 0; i < arr.length(); i++) {
 				JSONObject objFile = new JSONObject(arr.getString(i));
@@ -211,11 +225,14 @@ public class RefertoMedico extends ActionBarActivity {
 		}
 		return prescrizioni;
 	}
-	
-	/** Metodo che trasforma una stringa rappresentante un'immagine in una Bitmap */
+
+	/**
+	 * Metodo che trasforma una stringa rappresentante un'immagine in una Bitmap
+	 */
 	private Bitmap fromStringToBitmap(String f) {
 		byte[] decodedString = Base64.decode(f, Base64.DEFAULT);
-		Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+		Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0,
+				decodedString.length);
 		return decodedByte;
 	}
 }

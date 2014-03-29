@@ -45,6 +45,13 @@
             android:parentActivityName="com.example.ippocrate.CartellaClinica"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="com.example.ippocrate.ImmagineFullScreen"
+            android:label="@string/title_activity_immagine_full_screen"
+            android:launchMode="singleTop"
+            android:parentActivityName="com.example.ippocrate.RefertoMedico"
+            android:screenOrientation="unspecified" >
+        </activity>
     </application>
 
 </manifest>

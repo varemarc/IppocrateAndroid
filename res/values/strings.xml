@@ -15,5 +15,6 @@
     <string name="titoloDiagnosi"><u>Diagnosi</u></string>
     <string name="titoloMultimedia"><u>Multimedia</u></string>
     <string name="titoloPrescrizioniMediche"><u>Prescrizioni mediche</u></string>
+    <string name="title_activity_immagine_full_screen">ImmagineFullScreen</string>
 
 </resources>
