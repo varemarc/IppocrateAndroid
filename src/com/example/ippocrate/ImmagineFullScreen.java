@@ -1,6 +1,7 @@
 package com.example.ippocrate;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -31,8 +32,11 @@ public class ImmagineFullScreen extends ActionBarActivity {
 		// status bar is hidden, so hide that too if necessary.
 		getActionBar().hide();
 
-		Bitmap img = (Bitmap) getIntent().getParcelableExtra("img");
-		((ImageView) findViewById(R.id.imgFullScreen)).setImageBitmap(img);
+		Bitmap img = BitmapFactory.decodeByteArray(getIntent()
+				.getByteArrayExtra("imgByteArray"), 0, getIntent()
+				.getByteArrayExtra("imgByteArray").length);
+		ImageView iv = (ImageView) findViewById(R.id.imgFullScreen);
+		iv.setImageBitmap(img);
 
 	}
 

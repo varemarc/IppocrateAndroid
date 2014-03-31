@@ -1,5 +1,6 @@
 package com.example.ippocrate;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -110,8 +111,11 @@ public class RefertoMedico extends ActionBarActivity {
 		ImageView iv = (ImageView) v;
 		Bitmap img = ((BitmapDrawable) iv.getDrawable()).getBitmap();
 
+		ByteArrayOutputStream bs = new ByteArrayOutputStream();
+		img.compress(Bitmap.CompressFormat.PNG, 50, bs);
+
 		Intent intent = new Intent(RefertoMedico.this, ImmagineFullScreen.class);
-		intent.putExtra("img", img);
+		intent.putExtra("imgByteArray", bs.toByteArray());
 		startActivity(intent);
 	}
 
