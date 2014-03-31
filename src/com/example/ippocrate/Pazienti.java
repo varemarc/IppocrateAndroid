@@ -12,8 +12,8 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
@@ -25,19 +25,11 @@ import android.widget.ListView;
 public class Pazienti extends ActionBarActivity {
 
 	private Long idMedico;
-	private List<String[]> pazientiConId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pazienti);
-
-		StrictMode.enableDefaults();
-
-		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-				.permitAll().build();
-
-		StrictMode.setThreadPolicy(policy);
 
 		Bundle b = getIntent().getExtras();
 		idMedico = Long.valueOf(b.getLong("idMedico"));
@@ -48,91 +40,106 @@ public class Pazienti extends ActionBarActivity {
 	protected void onStart() {
 		super.onStart();
 
-		pazientiConId = trovaPazienti(idMedico);
-		List<String> listaPazienti = new ArrayList<String>();
+		new Connection().execute(idMedico);
 
-		for (int i = 0; i < pazientiConId.size(); i++) {
-			String[] elem = pazientiConId.get(i);
-			listaPazienti.add(elem[1]);
-		}
-
-		ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this,
-				R.layout.row_pazienti, listaPazienti);
-		ListView mainListView = (ListView) findViewById(R.id.listView);
-		mainListView.setAdapter(listAdapter);
-
-		mainListView.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> a, View v, int position,
-					long id) {
-				String[] elem = pazientiConId.get(position);
-				Long idPaziente = Long.valueOf(elem[0]);
-				String paziente = elem[1];
-
-				Intent intent = new Intent(Pazienti.this, CartellaClinica.class);
-				Bundle b = new Bundle();
-				b.putLong("idPaziente", idPaziente.longValue());
-				b.putString("paziente", paziente);
-				intent.putExtras(b);
-				startActivity(intent);
-			}
-		});
 	}
 
-	/** Metodo invocato per ottenere i pazienti di un medico */
-	public List<String[]> trovaPazienti(Long idMedico) {
+	private class Connection extends AsyncTask<Long, Void, List<String[]>> {
 
-		Log.i("trovaPazienti", "fase iniziale");
+		@Override
+		protected List<String[]> doInBackground(Long... params) {
+			return trovaPazienti(params[0]);
+		}
 
-		SoapObject request = new SoapObject(getString(R.string.NAMESPACE),
-				"trovaPazienti");
-		request.addProperty("idMedico", idMedico);
+		@Override
+		protected void onPostExecute(final List<String[]> pazientiConId) {
+			List<String> listaPazienti = new ArrayList<String>();
 
-		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
-				SoapEnvelope.VER10);
-		envelope.setAddAdornments(false);
-		envelope.implicitTypes = true;
-		envelope.setOutputSoapObject(request);
-
-		HttpTransportSE androidHttpTransport = new HttpTransportSE(
-				getString(R.string.URL));
-
-		androidHttpTransport.debug = true;
-
-		List<String[]> pazienti = new ArrayList<String[]>();
-
-		try {
-			String soapAction = "\"" + getString(R.string.NAMESPACE)
-					+ "trovaPazienti" + "\"";
-			androidHttpTransport.call(soapAction, envelope);
-
-			Log.i("trovaPazienti", "inviata richiesta");
-
-			SoapPrimitive response = (SoapPrimitive) envelope.getResponse();
-
-			Log.i("trovaPazienti", "ricevuta risposta");
-
-			String responseData = response.toString();
-
-			JSONObject obj = new JSONObject(responseData);
-
-			Log.i("response", obj.toString());
-
-			JSONArray arr = obj.getJSONArray("mieiPazienti");
-
-			for (int i = 0; i < arr.length(); i++) {
-				String[] paziente = new String[2];
-				JSONObject objPaz = new JSONObject(arr.getString(i));
-				paziente[0] = objPaz.get("idPaziente").toString();
-				paziente[1] = objPaz.get("nome").toString() + " "
-						+ objPaz.get("cognome").toString();
-				pazienti.add(paziente);
+			for (int i = 0; i < pazientiConId.size(); i++) {
+				String[] elem = pazientiConId.get(i);
+				listaPazienti.add(elem[1]);
 			}
 
-		} catch (Exception e) {
-			Log.e("WS Error->", e.toString());
+			ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(
+					Pazienti.this, R.layout.row_pazienti, listaPazienti);
+			ListView mainListView = (ListView) findViewById(R.id.listView);
+			mainListView.setAdapter(listAdapter);
+
+			mainListView.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> a, View v, int position,
+						long id) {
+					String[] elem = pazientiConId.get(position);
+					Long idPaziente = Long.valueOf(elem[0]);
+					String paziente = elem[1];
+
+					Intent intent = new Intent(Pazienti.this,
+							CartellaClinica.class);
+					Bundle b = new Bundle();
+					b.putLong("idPaziente", idPaziente.longValue());
+					b.putString("paziente", paziente);
+					intent.putExtras(b);
+					startActivity(intent);
+				}
+			});
 		}
-		return pazienti;
+
+		/** Metodo invocato per ottenere i pazienti di un medico */
+		private List<String[]> trovaPazienti(Long idMedico) {
+
+			Log.i("trovaPazienti", "fase iniziale");
+
+			SoapObject request = new SoapObject(getString(R.string.NAMESPACE),
+					"trovaPazienti");
+			request.addProperty("idMedico", idMedico);
+
+			SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+					SoapEnvelope.VER10);
+			envelope.setAddAdornments(false);
+			envelope.implicitTypes = true;
+			envelope.setOutputSoapObject(request);
+
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(
+					getString(R.string.URL));
+
+			androidHttpTransport.debug = true;
+
+			List<String[]> pazienti = new ArrayList<String[]>();
+
+			try {
+				String soapAction = "\"" + getString(R.string.NAMESPACE)
+						+ "trovaPazienti" + "\"";
+				androidHttpTransport.call(soapAction, envelope);
+
+				Log.i("trovaPazienti", "inviata richiesta");
+
+				SoapPrimitive response = (SoapPrimitive) envelope.getResponse();
+
+				Log.i("trovaPazienti", "ricevuta risposta");
+
+				String responseData = response.toString();
+
+				JSONObject obj = new JSONObject(responseData);
+
+				Log.i("response", obj.toString());
+
+				JSONArray arr = obj.getJSONArray("mieiPazienti");
+
+				for (int i = 0; i < arr.length(); i++) {
+					String[] paziente = new String[2];
+					JSONObject objPaz = new JSONObject(arr.getString(i));
+					paziente[0] = objPaz.get("idPaziente").toString();
+					paziente[1] = objPaz.get("nome").toString() + " "
+							+ objPaz.get("cognome").toString();
+					pazienti.add(paziente);
+				}
+
+			} catch (Exception e) {
+				Log.e("WS Error->", e.toString());
+			}
+			return pazienti;
+		}
 	}
 
 }
