@@ -10,7 +10,7 @@
         android:id="@+id/fileRow"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:contentDescription="Immagine referto"
+        android:contentDescription="@string/immagineReferto"
         android:onClick="goFullScreen"
         android:scaleType="centerCrop" />
 

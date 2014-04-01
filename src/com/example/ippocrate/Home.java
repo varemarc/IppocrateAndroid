@@ -7,6 +7,7 @@ import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -58,6 +59,18 @@ public class Home extends ActionBarActivity {
 
 	private class Connection extends AsyncTask<String, Void, Long> {
 
+		private ProgressDialog progDailog;
+
+		@Override
+		protected void onPreExecute() {
+			progDailog = new ProgressDialog(Home.this);
+			progDailog.setMessage("Loading...");
+			progDailog.setIndeterminate(false);
+			progDailog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+			progDailog.setCancelable(true);
+			progDailog.show();
+		}
+
 		@Override
 		protected Long doInBackground(String... params) {
 			return login(params[0], params[1], params[2]);
@@ -65,13 +78,14 @@ public class Home extends ActionBarActivity {
 
 		@Override
 		protected void onPostExecute(Long idMedico) {
+			progDailog.dismiss();
+
 			if (idMedico.equals(Long.valueOf(-1)) == false) {
 				Intent intent = new Intent(Home.this, Pazienti.class);
 				Bundle b = new Bundle();
 				b.putLong("idMedico", idMedico.longValue());
 				intent.putExtras(b);
 				startActivity(intent);
-				finish();
 			} else {
 				LayoutInflater inflater = getLayoutInflater();
 				View layout = inflater.inflate(R.layout.error_toast,

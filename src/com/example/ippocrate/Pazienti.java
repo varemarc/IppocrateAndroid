@@ -11,6 +11,7 @@ import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -31,6 +32,8 @@ public class Pazienti extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pazienti);
 
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 		Bundle b = getIntent().getExtras();
 		idMedico = Long.valueOf(b.getLong("idMedico"));
 
@@ -45,6 +48,18 @@ public class Pazienti extends ActionBarActivity {
 	}
 
 	private class Connection extends AsyncTask<Long, Void, List<String[]>> {
+
+		private ProgressDialog progDailog;
+
+		@Override
+		protected void onPreExecute() {
+			progDailog = new ProgressDialog(Pazienti.this);
+			progDailog.setMessage("Loading...");
+			progDailog.setIndeterminate(false);
+			progDailog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+			progDailog.setCancelable(true);
+			progDailog.show();
+		}
 
 		@Override
 		protected List<String[]> doInBackground(Long... params) {
@@ -64,7 +79,9 @@ public class Pazienti extends ActionBarActivity {
 					Pazienti.this, R.layout.row_pazienti, listaPazienti);
 			ListView mainListView = (ListView) findViewById(R.id.listView);
 			mainListView.setAdapter(listAdapter);
-
+			
+			progDailog.dismiss();
+			
 			mainListView.setOnItemClickListener(new OnItemClickListener() {
 
 				@Override

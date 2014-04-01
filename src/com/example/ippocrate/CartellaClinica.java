@@ -11,6 +11,7 @@ import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -51,6 +52,7 @@ public class CartellaClinica extends ActionBarActivity {
 	}
 
 	/** Metodo invocato al click di una riga della tabella dei referti */
+	@SuppressWarnings("unchecked")
 	public void clickRow(View v) {
 		int i = v.getId();
 		List<String[]> referti = (List<String[]>) ccConReferti.get(2);
@@ -69,11 +71,24 @@ public class CartellaClinica extends ActionBarActivity {
 
 	private class Connection extends AsyncTask<Long, Void, List<Object>> {
 
+		private ProgressDialog progDailog;
+
+		@Override
+		protected void onPreExecute() {
+			progDailog = new ProgressDialog(CartellaClinica.this);
+			progDailog.setMessage("Loading...");
+			progDailog.setIndeterminate(false);
+			progDailog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+			progDailog.setCancelable(true);
+			progDailog.show();
+		}
+
 		@Override
 		protected List<Object> doInBackground(Long... params) {
 			return ottieniCC(params[0]);
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		protected void onPostExecute(List<Object> result) {
 			ccConReferti = result;
@@ -97,6 +112,7 @@ public class CartellaClinica extends ActionBarActivity {
 				((TextView) row.findViewById(R.id.medicoRow)).setText(r[3]);
 				table.addView(row);
 			}
+			progDailog.dismiss();
 		}
 
 		/** Metodo invocato per ottenere la cartella clinica di un paziente */

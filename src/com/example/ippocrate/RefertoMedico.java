@@ -12,6 +12,7 @@ import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -86,6 +87,17 @@ public class RefertoMedico extends ActionBarActivity {
 
 		private List<String> multimedia;
 		private List<String[]> prescrizioni;
+		private ProgressDialog progDailog;
+
+		@Override
+		protected void onPreExecute() {
+			progDailog = new ProgressDialog(RefertoMedico.this);
+			progDailog.setMessage("Loading...");
+			progDailog.setIndeterminate(false);
+			progDailog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+			progDailog.setCancelable(true);
+			progDailog.show();
+		}
 
 		@Override
 		protected Void doInBackground(Long... params) {
@@ -96,7 +108,6 @@ public class RefertoMedico extends ActionBarActivity {
 
 		@Override
 		protected void onPostExecute(Void result) {
-
 			TableLayout table = (TableLayout) findViewById(R.id.tabellaMultimedia);
 			table.removeAllViews(); // utile per evitare la duplicazione delle
 									// righe
@@ -129,6 +140,7 @@ public class RefertoMedico extends ActionBarActivity {
 				((TextView) row.findViewById(R.id.quantitaRow)).setText(pm[4]);
 				table.addView(row);
 			}
+			progDailog.dismiss();
 		}
 
 		/** Metodo invocato per ottenere i file multimediali di un referto */
