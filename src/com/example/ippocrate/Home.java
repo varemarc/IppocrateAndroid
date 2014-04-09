@@ -30,12 +30,12 @@ public class Home extends ActionBarActivity {
 		setContentView(R.layout.activity_home);
 
 		// TESTING
-		EditText et1 = (EditText) findViewById(R.id.username);
-		et1.setText("2222");
-		EditText et2 = (EditText) findViewById(R.id.pincode);
-		et2.setText("2222");
-		EditText et3 = (EditText) findViewById(R.id.password);
-		et3.setText("2222");
+//		EditText et1 = (EditText) findViewById(R.id.username);
+//		et1.setText("2222");
+//		EditText et2 = (EditText) findViewById(R.id.pincode);
+//		et2.setText("2222");
+//		EditText et3 = (EditText) findViewById(R.id.password);
+//		et3.setText("2222");
 		// END TESTING
 
 		Button accedi = (Button) findViewById(R.id.accedi);

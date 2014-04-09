@@ -2,7 +2,8 @@
 <resources>
 
     <string name="NAMESPACE">http://WebService/</string>
-    <string name="URL">http://192.168.1.100:8080/WSPaziente/WSPaziente?wsdl</string>
+<!--     <string name="URL">http://192.168.1.100:8080/WSPaziente/WSPaziente?wsdl</string> -->
 <!--     <string name="URL">http://10.17.2.136:8080/WSPaziente/WSPaziente?wsdl</string> -->
 <!--     <string name="URL">http://172.16.204.150:8080/WSPaziente/WSPaziente?wsdl</string> -->
+    <string name="URL">http://172.16.57.76:8080/WSPaziente/WSPaziente?wsdl</string>
 </resources>
